@@ -41,14 +41,14 @@ class MyDocument extends Document<{ emotionStyleTags: JSX.Element[] }> {
     return (
       <Html>
         <Head>
-          <link rel='preconnect' href='https://fonts.googleapis.com/%22%3E' />
+          <link rel='preconnect' href='https://fonts.googleapis.com' />
           <link
             rel='preconnect'
-            href='https://fonts.gstatic.com/'
+            href='https://fonts.gstatic.com'
             crossOrigin=''
           />
           <link
-            href='https://fonts.googleapis.com/css2?family=Shizuru&display=swap'
+            href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Shizuru&display=swap'
             rel='stylesheet'
           />
           {this.props.emotionStyleTags}

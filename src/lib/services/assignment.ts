@@ -9,7 +9,7 @@ export interface Assignment extends AssignmentInput {
 }
 
 export function getAssignment() {
-  return apiInstance.get<Assignment[]>('/assignment-list').then(r => r.data)
+  return apiInstance.get<Assignment[]>('/assignment-list/').then(r => r.data)
 }
 
 export interface AssignmentInput {

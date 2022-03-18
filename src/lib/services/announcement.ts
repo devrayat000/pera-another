@@ -8,7 +8,9 @@ export interface Announcement extends AnnouncementInput {
 }
 
 export function getAnnouncements() {
-  return apiInstance.get<Announcement[]>('/announcement-list').then(r => r.data)
+  return apiInstance
+    .get<Announcement[]>('/announcement-list/')
+    .then(r => r.data)
 }
 
 export interface AnnouncementInput {

@@ -9,9 +9,10 @@ import { EmotionCache, CacheProvider } from '@emotion/react'
 // import '../styles/globals.css'
 
 import queryClient from '$lib/modules/react-query'
-import { CssBaseline, ThemeProvider } from '@mui/material'
+import { Box, CssBaseline, ThemeProvider } from '@mui/material'
 import { theme } from '$lib/styles/theme'
 import { createCache } from '$lib/utils/css-cache'
+import MiniDrawer from '$lib/components/common/drawer'
 
 const clientCache = createCache()
 
@@ -26,7 +27,12 @@ const MyApp: NextPage<MyAppProps> = ({
         <CacheProvider value={emotionCache}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Component {...(pageProps as any)} />
+            <Box sx={{ display: 'flex' }}>
+              <MiniDrawer />
+              <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
+                <Component {...(pageProps as any)} />
+              </Box>
+            </Box>
           </ThemeProvider>
         </CacheProvider>
       </Hydrate>
