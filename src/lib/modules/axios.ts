@@ -1,7 +1,8 @@
-import axios from "axios";
+import axios from 'axios'
 
 const apiInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL + "/api/public",
-});
+  baseURL: process.env.NEXT_PUBLIC_API_URL + '/api/public',
+  maxRedirects: 5,
+})
 
-export default apiInstance;
+export default apiInstance
