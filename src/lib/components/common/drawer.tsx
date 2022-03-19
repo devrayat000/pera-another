@@ -14,6 +14,7 @@ import {
   ViewInArOutlined,
 } from '@mui/icons-material'
 import { Collapse, Grow, Typography } from '@mui/material'
+import { useStore } from '$lib/services/store'
 
 const drawerWidth = 320
 
@@ -107,11 +108,13 @@ const links = [
 ]
 
 export default function MiniDrawer() {
-  const [open, setOpen] = useState(false)
+  // const [open, setOpen] = useState(false)
+  const open = useStore(store => store.drawer.state)
+  const handleDrawerToggle = useStore(store => store.drawer.toggle)
 
-  const handleDrawerToggle = () => {
-    setOpen(prev => !prev)
-  }
+  // const handleDrawerToggle = () => {
+  //   setOpen(prev => !prev)
+  // }
 
   return (
     <Drawer

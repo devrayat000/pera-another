@@ -1,6 +1,14 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import { dehydrate } from 'react-query'
-import { Avatar, Container, Grid, Paper, Typography } from '@mui/material'
+import {
+  Avatar,
+  Box,
+  Container,
+  Grid,
+  ListItem,
+  Paper,
+  Typography,
+} from '@mui/material'
 import { green, pink, blue } from '@mui/material/colors'
 import { AttachMoney } from '@mui/icons-material'
 
@@ -14,36 +22,49 @@ import {
   CLASS_TEST_QUERY,
 } from '$lib/utils/constants'
 import useDailyInfo from '$lib/hooks/useDailyInfo'
+import Task from '$lib/components/task/header'
+import TaskDetails from '$lib/components/task/details'
+
+const tasks = [
+  {
+    title: 'Class Tests',
+    count: 69,
+    icon: AttachMoney,
+  },
+  {
+    title: 'Assignments',
+    count: 12,
+    icon: AttachMoney,
+  },
+  {
+    title: 'Announcements',
+    count: 35,
+    icon: AttachMoney,
+  },
+]
 
 const Home: NextPage = () => {
   return (
     <div>
-      <Container
-        maxWidth='md'
-        component={Paper}
-        sx={{ borderRadius: t => t.spacing(4), p: t => t.spacing(3) }}
-        elevation={1}
-      >
-        <Grid container spacing={2}>
-          <Grid item xs={4}>
-            <Avatar sx={{ bgcolor: green[100] }}>
-              <AttachMoney sx={{ color: green[500] }} />
-            </Avatar>
-            <Typography>Class Tests</Typography>
+      <Container maxWidth='md'>
+        <Typography variant='h4' fontWeight={600}>
+          Bonjour 👋🏼
+        </Typography>
+        <Box height={t => t.spacing(2.5)} />
+        <Paper
+          sx={{ borderRadius: t => t.spacing(4), p: t => t.spacing(3) }}
+          elevation={1}
+        >
+          <Grid container spacing={2} paddingX={t => t.spacing(4)}>
+            {tasks.map((task, index) => (
+              <Grid key={task.title} item xs={4} component={ListItem}>
+                <Task {...task} />
+              </Grid>
+            ))}
           </Grid>
-          <Grid item xs={4}>
-            <Avatar sx={{ bgcolor: pink[100] }}>
-              <AttachMoney sx={{ color: pink[500] }} />
-            </Avatar>
-            <Typography>Assignments</Typography>
-          </Grid>
-          <Grid item xs={4}>
-            <Avatar sx={{ bgcolor: blue[100] }}>
-              <AttachMoney sx={{ color: blue[500] }} />
-            </Avatar>
-            <Typography>Announcements</Typography>
-          </Grid>
-        </Grid>
+        </Paper>
+        <Box height={t => t.spacing(4)} />
+        <TaskDetails />
       </Container>
     </div>
   )

@@ -21,6 +21,9 @@ export const theme = createTheme({
       default: '#FAFBFF',
       paper: '#ffffff',
     },
+    text: {
+      secondary: '#9197B3',
+    },
   },
   typography: {
     fontFamily: ["'Poppins'", ...defaultFonts].join(', '),
