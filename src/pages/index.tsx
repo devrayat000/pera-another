@@ -16,23 +16,13 @@ import {
 import useDailyInfo from '$lib/hooks/useDailyInfo'
 
 const Home: NextPage = () => {
-  // const { classTest, assignment, announcement } = useDailyInfo()
-
-  // if (isFetching && !isRefetching) {
-  //   return <h2>Loading...</h2>
-  // }
-
-  // if (error && error instanceof Error) {
-  //   console.log(error)
-  //   return <h3>{error.message}</h3>
-  // }
-
   return (
     <div>
       <Container
         maxWidth='md'
         component={Paper}
         sx={{ borderRadius: t => t.spacing(4), p: t => t.spacing(3) }}
+        elevation={1}
       >
         <Grid container spacing={2}>
           <Grid item xs={4}>

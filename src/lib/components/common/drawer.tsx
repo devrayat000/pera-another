@@ -2,30 +2,20 @@ import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import MuiDrawer from '@mui/material/Drawer'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
 import List from '@mui/material/List'
-import CssBaseline from '@mui/material/CssBaseline'
-import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
-import MenuIcon from '@mui/icons-material/Menu'
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
-import MailIcon from '@mui/icons-material/Mail'
-import SettingsOutlined from '@mui/icons-material/SettingsOutlined'
-import Settings from '@mui/icons-material/Settings'
 import { useState } from 'react'
+import Settings from '../icons/settings'
+import DrawerLink from '../link/drawer-link'
 import {
-  SwitchTransition,
-  Transition,
-  CSSTransition,
-} from 'react-transition-group'
+  HelpCenterOutlined,
+  ListAltOutlined,
+  ViewInArOutlined,
+} from '@mui/icons-material'
+import { Collapse, Grow, Typography } from '@mui/material'
 
-const drawerWidth = 240
+const drawerWidth = 320
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -42,16 +32,16 @@ const closedMixin = (theme: Theme): CSSObject => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
+  width: `calc(${theme.spacing(10)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
+    width: `calc(${theme.spacing(11)} + 1px)`,
   },
 })
 
-const DrawerHeader = styled('div')(({ theme }) => ({
+const DrawerHeader = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'flex-end',
+  justifyContent: 'center',
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
@@ -98,6 +88,24 @@ const Drawer = styled(MuiDrawer, {
 
 const duration = 200
 
+const links = [
+  {
+    href: '/',
+    text: 'Overall',
+    icon: ListAltOutlined,
+  },
+  {
+    href: '/calender',
+    text: 'Calender',
+    icon: ViewInArOutlined,
+  },
+  {
+    href: '/help',
+    text: 'Help Zone',
+    icon: HelpCenterOutlined,
+  },
+]
+
 export default function MiniDrawer() {
   const [open, setOpen] = useState(false)
 
@@ -110,99 +118,42 @@ export default function MiniDrawer() {
       variant='permanent'
       transitionDuration={duration * 2}
       open={open}
-      //   elevation={5}
       PaperProps={{
         sx: {
           borderRadius: t => t.spacing(2),
+          p: t => t.spacing(2.5),
+          // boxShadow: t => t.shadows[1],
+          border: 0,
+          left: t => t.spacing(1.5),
         },
-        elevation: 4,
+        elevation: 1,
       }}
     >
-      <DrawerHeader>
+      <DrawerHeader
+        sx={{
+          height: t => `calc(${t.spacing(10)} + 1px)`,
+          ...(open && {
+            justifyContent: 'space-between',
+          }),
+        }}
+        component='header'
+        gap={2}
+      >
+        <Collapse in={open} orientation='horizontal' mountOnEnter unmountOnExit>
+          <Box display='flex' alignItems='end' gap={t => t.spacing(1)}>
+            <Typography variant='h4' fontWeight={600} component='h4'>
+              ME 2020
+            </Typography>
+            <Typography>v.69</Typography>
+          </Box>
+        </Collapse>
         <IconButton onClick={handleDrawerToggle}>
-          <SwitchTransition>
-            <CSSTransition
-              in={open}
-              key={`${open}`}
-              addEndListener={(node, done) =>
-                node.addEventListener('transitionend', done, false)
-              }
-              timeout={duration}
-              classNames='drawer-openner'
-            >
-              {open ? (
-                <SettingsOutlined fontSize='large' />
-              ) : (
-                <Settings fontSize='large' />
-              )}
-            </CSSTransition>
-          </SwitchTransition>
-          <style>
-            {`
-                .drawer-openner-enter {
-                    transform: rotate(0deg);
-                }
-                .drawer-openner-enter-active {
-                    transform: rotate(${open ? '180deg' : '-180deg'});
-                    transition: transform ${duration}ms linear;
-                }
-                .drawer-openner-exit {
-                    transform: rotate(${open ? '180deg' : '-180deg'});
-                }
-                .drawer-openner-exit-active {
-                    transform: rotate(${open ? '360deg' : '-360deg'});
-                    transition: transform ${duration}ms linear;
-                }
-            `}
-          </style>
+          <Settings open={open} duration={duration} />
         </IconButton>
       </DrawerHeader>
-      <Divider />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItemButton
-            key={text}
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : 'auto',
-                justifyContent: 'center',
-              }}
-            >
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItemButton
-            key={text}
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : 'auto',
-                justifyContent: 'center',
-              }}
-            >
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
+        {links.map(link => (
+          <DrawerLink key={link.href} open={open} {...link} />
         ))}
       </List>
     </Drawer>
