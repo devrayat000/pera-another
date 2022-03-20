@@ -1,20 +1,29 @@
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles'
+import { styled, Theme, CSSObject } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import MuiDrawer from '@mui/material/Drawer'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import List from '@mui/material/List'
-import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
-import { useState } from 'react'
-import Settings from '../icons/settings'
-import DrawerLink from '../link/drawer-link'
 import {
   HelpCenterOutlined,
   ListAltOutlined,
-  ViewInArOutlined,
+  CalendarViewMonthOutlined,
 } from '@mui/icons-material'
-import { Collapse, Grow, Typography } from '@mui/material'
+import {
+  Avatar,
+  Button,
+  Collapse,
+  Fade,
+  Grow,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from '@mui/material'
+
+import Settings from '../icons/settings'
+import DrawerLink, { MyListItemButton } from '../link/drawer-link'
 import { useStore } from '$lib/services/store'
+import Author from './author'
 
 const drawerWidth = 320
 
@@ -48,26 +57,17 @@ const DrawerHeader = styled(Box)(({ theme }) => ({
   ...theme.mixins.toolbar,
 }))
 
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean
-}
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: prop => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
+const DrawerFooter = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'start',
+  justifyContent: 'end',
+  flexGrow: 1,
+  gap: 3.5,
+  justifySelf: 'self-end',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
 }))
 
 const Drawer = styled(MuiDrawer, {
@@ -98,7 +98,7 @@ const links = [
   {
     href: '/calender',
     text: 'Calender',
-    icon: ViewInArOutlined,
+    icon: CalendarViewMonthOutlined,
   },
   {
     href: '/help',
@@ -108,13 +108,8 @@ const links = [
 ]
 
 export default function MiniDrawer() {
-  // const [open, setOpen] = useState(false)
   const open = useStore(store => store.drawer.state)
   const handleDrawerToggle = useStore(store => store.drawer.toggle)
-
-  // const handleDrawerToggle = () => {
-  //   setOpen(prev => !prev)
-  // }
 
   return (
     <Drawer
@@ -125,7 +120,6 @@ export default function MiniDrawer() {
         sx: {
           borderRadius: t => t.spacing(2),
           p: t => t.spacing(2.5),
-          // boxShadow: t => t.shadows[1],
           border: 0,
           left: t => t.spacing(1.5),
         },
@@ -142,14 +136,14 @@ export default function MiniDrawer() {
         component='header'
         gap={2}
       >
-        <Collapse in={open} orientation='horizontal' mountOnEnter unmountOnExit>
+        <Fade in={open} mountOnEnter unmountOnExit>
           <Box display='flex' alignItems='end' gap={t => t.spacing(1)}>
             <Typography variant='h4' fontWeight={600} component='h4'>
               ME 2020
             </Typography>
             <Typography>v.69</Typography>
           </Box>
-        </Collapse>
+        </Fade>
         <IconButton onClick={handleDrawerToggle}>
           <Settings open={open} duration={duration} />
         </IconButton>
@@ -158,6 +152,31 @@ export default function MiniDrawer() {
         {links.map(link => (
           <DrawerLink key={link.href} open={open} {...link} />
         ))}
+      </List>
+
+      <Box display='flex' flexGrow={1} />
+      <List>
+        <Fade in={open}>
+          <ListItemText
+            primaryTypographyProps={{
+              component: 'h6',
+            }}
+          >
+            Developed By
+          </ListItemText>
+        </Fade>
+        <Author
+          open={open}
+          text='BooleanWolf'
+          href='https://www.facebook.com/mdtamim.sarkar.58/'
+          image='/images/developer/tamim.jpg'
+        />
+        <Author
+          open={open}
+          text='DarkCoder'
+          href='https://www.facebook.com/rayat.ass/'
+          image='/images/developer/rayat.jpg'
+        />
       </List>
     </Drawer>
   )

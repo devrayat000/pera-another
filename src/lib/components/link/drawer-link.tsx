@@ -6,30 +6,33 @@ import ListItemButton, {
 } from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import { SvgIcon } from '@mui/material'
+import { darken, SvgIcon } from '@mui/material'
 import { styled } from '@mui/material'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 export interface DrawerLinkProps extends LinkProps {
-  open: boolean
+  open?: boolean
   text: string
   icon: typeof SvgIcon
 }
 
-interface MyListItemButton extends ListItemButtonProps {
-  active: boolean
-  component?: React.ElementType
+export interface BaseDrawerLinkProps extends MyListItemButton {
+  open?: boolean
+  text: string
+  leading?: JSX.Element
+  trailing?: JSX.Element
 }
 
-const MyListItemButton = styled(ListItemButton, {
+interface MyListItemButton extends ListItemButtonProps<React.ElementType> {
+  active?: boolean
+}
+
+export const MyListItemButton = styled(ListItemButton, {
   shouldForwardProp: props => props !== 'active',
   name: 'MyListItemButton',
 })<MyListItemButton>(({ theme, active }) => ({
   minHeight: 48,
-  paddingLeft: theme.spacing(2),
-  paddingRight: theme.spacing(2),
-  paddingTop: theme.spacing(1.5),
-  paddingBottom: theme.spacing(1.5),
+  padding: theme.spacing(1.5, 2),
   color: active ? 'white' : theme.palette.grey[200],
   backgroundColor: active ? theme.palette.primary.main : 'transparent',
   borderRadius: theme.spacing(1.25),
@@ -37,10 +40,33 @@ const MyListItemButton = styled(ListItemButton, {
   marginBottom: theme.spacing(1.75),
   ...(active && {
     '&:hover': {
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: darken(theme.palette.primary.main, 0.2),
     },
   }),
 }))
+
+export const BaseDrawerLink: React.FC<BaseDrawerLinkProps> = props => {
+  const { text, open, active, leading, trailing, ...rest } = props
+
+  return (
+    <MyListItemButton
+      active={active}
+      key={text}
+      sx={{
+        justifyContent: open ? 'initial' : 'center',
+      }}
+      component='a'
+      {...rest}
+    >
+      {leading}
+      <ListItemText
+        primary={text}
+        sx={{ opacity: open ? 1 : 0, color: 'inherit' }}
+      />
+      {!active && open && trailing}
+    </MyListItemButton>
+  )
+}
 
 const DrawerLink: React.FC<DrawerLinkProps> = props => {
   const { open, text, icon: Icon, ...rest } = props
@@ -54,32 +80,24 @@ const DrawerLink: React.FC<DrawerLinkProps> = props => {
 
   return (
     <Link passHref {...rest}>
-      <MyListItemButton
+      <BaseDrawerLink
+        open={open}
+        text={text}
         active={isActive}
-        key={text}
-        sx={{
-          justifyContent: open ? 'initial' : 'center',
-        }}
-        component='a'
-      >
-        <ListItemIcon
-          sx={{
-            minWidth: 0,
-            mr: open ? 3 : 'auto',
-            justifyContent: 'center',
-            color: 'inherit',
-          }}
-        >
-          <Icon />
-        </ListItemIcon>
-        <ListItemText
-          primary={text}
-          sx={{ opacity: open ? 1 : 0, color: 'inherit' }}
-        />
-        {!isActive && open && (
-          <ArrowForwardIosIcon sx={{ fontSize: t => t.spacing(2) }} />
-        )}
-      </MyListItemButton>
+        leading={
+          <ListItemIcon
+            sx={{
+              minWidth: 0,
+              mr: open ? 3 : 'auto',
+              justifyContent: 'center',
+              color: 'inherit',
+            }}
+          >
+            <Icon />
+          </ListItemIcon>
+        }
+        trailing={<ArrowForwardIosIcon sx={{ fontSize: t => t.spacing(2) }} />}
+      />
     </Link>
   )
 }

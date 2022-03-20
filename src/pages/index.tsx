@@ -22,7 +22,7 @@ import HeaderCard from '$lib/components/common/header'
 
 const Home: NextPage = () => {
   return (
-    <Container maxWidth='md'>
+    <div>
       <Typography variant='h4' fontWeight={600}>
         Bonjour 👋🏼
       </Typography>
@@ -34,7 +34,7 @@ const Home: NextPage = () => {
       <ClassTestTable />
       <Box height={t => t.spacing(4)} />
       <AssignmentTable />
-    </Container>
+    </div>
   )
 }
 

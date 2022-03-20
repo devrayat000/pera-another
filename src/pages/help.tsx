@@ -9,7 +9,7 @@ import { dehydrate } from 'react-query'
 
 const HelpPage: NextPage = () => {
   return (
-    <Container maxWidth='md'>
+    <div>
       <Typography variant='h4' fontWeight={600}>
         Get your Question answered!
       </Typography>
@@ -29,7 +29,7 @@ const HelpPage: NextPage = () => {
       </Paper>
       <Box height={t => t.spacing(4)} />
       <RecentQuery />
-    </Container>
+    </div>
   )
 }
 
