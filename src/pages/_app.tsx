@@ -14,6 +14,7 @@ import { theme } from '$lib/styles/theme'
 import { createCache } from '$lib/utils/css-cache'
 import MiniDrawer from '$lib/components/common/drawer'
 import { InitialState, Provider, useCreateStore } from '$lib/services/store'
+import InfoProvider from '$lib/services/context/info'
 
 const clientCache = createCache()
 
@@ -31,14 +32,16 @@ const MyApp: NextPage<MyAppProps> = ({
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <Provider createStore={createStore}>
-              <Box sx={{ display: 'flex' }}>
-                <MiniDrawer />
-                <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
-                  <Container maxWidth='md'>
-                    <Component {...(pageProps as any)} />
-                  </Container>
+              <InfoProvider>
+                <Box sx={{ display: 'flex' }}>
+                  <MiniDrawer />
+                  <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
+                    <Container maxWidth='md'>
+                      <Component {...(pageProps as any)} />
+                    </Container>
+                  </Box>
                 </Box>
-              </Box>
+              </InfoProvider>
             </Provider>
           </ThemeProvider>
         </CacheProvider>

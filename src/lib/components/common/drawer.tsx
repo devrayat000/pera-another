@@ -1,7 +1,6 @@
 import { styled, Theme, CSSObject } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import MuiDrawer from '@mui/material/Drawer'
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import List from '@mui/material/List'
 import IconButton from '@mui/material/IconButton'
 import {
@@ -9,20 +8,12 @@ import {
   ListAltOutlined,
   CalendarViewMonthOutlined,
 } from '@mui/icons-material'
-import {
-  Avatar,
-  Button,
-  Collapse,
-  Fade,
-  Grow,
-  ListItemButton,
-  ListItemText,
-  Typography,
-} from '@mui/material'
+import { Fade, ListItemText, Typography } from '@mui/material'
 
 import Settings from '../icons/settings'
-import DrawerLink, { MyListItemButton } from '../link/drawer-link'
+import DrawerLink from '../link/drawer-link'
 import { useStore } from '$lib/services/store'
+import { useInfo } from '$lib/services/context/info'
 import Author from './author'
 
 const drawerWidth = 320
@@ -111,6 +102,8 @@ export default function MiniDrawer() {
   const open = useStore(store => store.drawer.state)
   const handleDrawerToggle = useStore(store => store.drawer.toggle)
 
+  const { name } = useInfo()
+
   return (
     <Drawer
       variant='permanent'
@@ -139,7 +132,7 @@ export default function MiniDrawer() {
         <Fade in={open} mountOnEnter unmountOnExit>
           <Box display='flex' alignItems='end' gap={t => t.spacing(1)}>
             <Typography variant='h4' fontWeight={600} component='h4'>
-              ME 2020
+              {name}
             </Typography>
             <Typography>v.69</Typography>
           </Box>

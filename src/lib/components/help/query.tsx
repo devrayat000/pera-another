@@ -1,3 +1,4 @@
+import { useInfo } from '$lib/services/context/info'
 import { askForHelp, IHelpQuery } from '$lib/services/help'
 import { HELP_MUTATION, HELP_QUERY } from '$lib/utils/constants'
 import { Button, InputBase, InputLabel, Paper, Typography } from '@mui/material'
@@ -27,6 +28,8 @@ const HelpQuery = () => {
       queryClient.invalidateQueries(HELP_QUERY)
     },
   })
+
+  const { roll, rollPlaceholder } = useInfo()
 
   const {
     register,
@@ -85,7 +88,7 @@ const HelpQuery = () => {
           <InputLabel>Student ID:</InputLabel>
           <InputBase
             size='small'
-            placeholder='2010***'
+            placeholder={rollPlaceholder}
             sx={{
               bgcolor: t => t.palette.background.default,
               py: t => t.spacing(0.75),
@@ -96,7 +99,7 @@ const HelpQuery = () => {
             inputProps={{
               ...register('student_id', {
                 pattern: {
-                  value: /2010(\d{3})/,
+                  value: roll,
                   message: 'Invalid Student ID!',
                 },
                 required: {
