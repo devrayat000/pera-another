@@ -14,7 +14,7 @@ const HelpQuery = () => {
       await queryClient.cancelQueries(HELP_QUERY)
       const previousTodos = queryClient.getQueryData(HELP_QUERY)
       queryClient.setQueryData<IHelpQuery[]>(HELP_QUERY, old => [
-        { ...newQuestion, id: old!.length + 1 },
+        { ...newQuestion, id: old![old!.length - 1].id + 1 },
         ...(old ?? []),
       ])
       return { previousTodos }
