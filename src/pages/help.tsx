@@ -1,15 +1,45 @@
+import { Typography, Box, Paper } from '@mui/material'
+import { GetServerSideProps, NextPage } from 'next'
+import { NextSeo } from 'next-seo'
+import { dehydrate } from 'react-query'
+
 import HelpQuery from '$lib/components/help/query'
 import RecentQuery from '$lib/components/help/recent-queries'
 import { createQueryClient } from '$lib/modules/react-query'
+import { useInfo } from '$lib/services/context/info'
 import { getRecentHelpQueries } from '$lib/services/help'
 import { HELP_QUERY } from '$lib/utils/constants'
-import { Container, Typography, Box, Paper } from '@mui/material'
-import { GetServerSideProps, NextPage } from 'next'
-import { dehydrate } from 'react-query'
 
 const HelpPage: NextPage = () => {
+  const { name } = useInfo()
+
   return (
     <div>
+      <NextSeo
+        title={`${name} | Help`}
+        description={`A general purpose web platform for information sharing among ${name}, BUET`}
+        additionalMetaTags={[
+          {
+            name: 'keywords',
+            content: 'buet,me,mecha,mechanical,20,xx,mech',
+          },
+        ]}
+        openGraph={{
+          url: 'https://me-20.vercel.app/help',
+          title: `${name} | BUET`,
+          description: `A general purpose web platform for information sharing among ${name}, BUET`,
+          images: [
+            {
+              url: '/seo/help.png',
+              width: 1002,
+              height: 515,
+              alt: 'Help Og Image Alt',
+              type: 'image/png',
+            },
+          ],
+          site_name: name,
+        }}
+      />
       <Typography variant='h4' fontWeight={600}>
         Get your Question answered!
       </Typography>

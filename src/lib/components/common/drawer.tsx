@@ -87,8 +87,8 @@ const links = [
     icon: ListAltOutlined,
   },
   {
-    href: '/calender',
-    text: 'Calender',
+    href: '/calendar',
+    text: 'Calendar',
     icon: CalendarViewMonthOutlined,
   },
   {

@@ -1,4 +1,5 @@
 import type { GetServerSideProps, NextPage } from 'next'
+import { NextSeo } from 'next-seo'
 import { dehydrate } from 'react-query'
 import { Box } from '@mui/material'
 
@@ -20,10 +21,38 @@ import {
 import { getCounter } from '$lib/services/count'
 import HeaderCard from '$lib/components/common/header'
 import Intro from '$lib/components/common/intro'
+import { useInfo } from '$lib/services/context/info'
 
 const Home: NextPage = () => {
+  const { name } = useInfo()
+
   return (
     <div>
+      <NextSeo
+        title={`${name} | Home`}
+        description={`A general purpose web platform for information sharing among ${name}, BUET`}
+        additionalMetaTags={[
+          {
+            name: 'keywords',
+            content: 'buet,me,mecha,mechanical,20,xx,mech',
+          },
+        ]}
+        openGraph={{
+          url: 'https://me-20.vercel.app/',
+          title: `${name} | BUET`,
+          description: `A general purpose web platform for information sharing among ${name}, BUET`,
+          images: [
+            {
+              url: '/seo/home.png',
+              width: 536,
+              height: 146,
+              alt: 'Home Og Image Alt',
+              type: 'image/png',
+            },
+          ],
+          site_name: name,
+        }}
+      />
       <Intro />
       <Box height={t => t.spacing(2.5)} />
       <HeaderCard />
