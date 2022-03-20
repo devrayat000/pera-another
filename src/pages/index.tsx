@@ -1,6 +1,6 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import { dehydrate } from 'react-query'
-import { Box, Container, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 
 import { getClassTests } from '$lib/services/class-test'
 import { createQueryClient } from '$lib/modules/react-query'
@@ -19,13 +19,12 @@ import {
 } from '$lib/components/task/individuals'
 import { getCounter } from '$lib/services/count'
 import HeaderCard from '$lib/components/common/header'
+import Intro from '$lib/components/common/intro'
 
 const Home: NextPage = () => {
   return (
     <div>
-      <Typography variant='h4' fontWeight={600}>
-        Bonjour 👋🏼
-      </Typography>
+      <Intro />
       <Box height={t => t.spacing(2.5)} />
       <HeaderCard />
       <Box height={t => t.spacing(4)} />

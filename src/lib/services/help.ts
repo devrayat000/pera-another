@@ -14,9 +14,11 @@ export interface HelpBody {
 }
 
 export function askForHelp(body: HelpBody) {
-  return apiInstance.post('/help-create/', body).then(r => r.data)
+  return apiInstance.post<IHelpQuery>('/help-create/', body).then(r => r.data)
 }
 
 export function getRecentHelpQueries() {
-  return apiInstance.get<IHelpQuery[]>('/help-list/').then(r => r.data)
+  return apiInstance
+    .get<IHelpQuery[]>('/help-list/')
+    .then(r => r.data.reverse())
 }

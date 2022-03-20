@@ -1,12 +1,32 @@
-import { askForHelp } from '$lib/services/help'
-import { HELP_MUTATION } from '$lib/utils/constants'
+import { askForHelp, IHelpQuery } from '$lib/services/help'
+import { HELP_MUTATION, HELP_QUERY } from '$lib/utils/constants'
 import { Button, InputBase, InputLabel, Paper, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { useForm } from 'react-hook-form'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 
 const HelpQuery = () => {
-  const { mutateAsync } = useMutation(HELP_MUTATION, askForHelp)
+  const queryClient = useQueryClient()
+  const { mutateAsync, isLoading } = useMutation(HELP_MUTATION, askForHelp, {
+    // When mutate is called:
+    onMutate: async newQuestion => {
+      await queryClient.cancelQueries(HELP_QUERY)
+      const previousTodos = queryClient.getQueryData(HELP_QUERY)
+      queryClient.setQueryData<IHelpQuery[]>(HELP_QUERY, old => [
+        { ...newQuestion, id: old!.length + 1 },
+        ...(old ?? []),
+      ])
+      return { previousTodos }
+    },
+    // If the mutation fails, use the context returned from onMutate to roll back
+    onError: (err, newQuestion, context) => {
+      queryClient.setQueryData(HELP_QUERY, (context as any).previousTodos)
+    },
+    // Always refetch after error or success:
+    onSettled: () => {
+      queryClient.invalidateQueries(HELP_QUERY)
+    },
+  })
 
   const {
     register,
@@ -88,7 +108,12 @@ const HelpQuery = () => {
             error={!!errors.student_id}
           />
         </Box>
-        <Button variant='contained' color='info' type='submit'>
+        <Button
+          variant='contained'
+          color='info'
+          type='submit'
+          disabled={isLoading}
+        >
           Submit
         </Button>
       </Box>
