@@ -17,15 +17,13 @@
 import { NextSeo } from 'next-seo'
 
 import Soon from '$lib/components/common/under-construction'
-import { useInfo } from '$lib/services/context/info'
+import { env } from '$lib/services/env'
 
 export default function Calendar() {
-  const { name } = useInfo()
-
   return (
     <>
       <NextSeo
-        title={`${name} | Calendar`}
+        title={`${env.name} | Calendar`}
         description={`A general purpose web platform for information sharing among ${name}, BUET`}
         additionalMetaTags={[
           {
@@ -35,7 +33,7 @@ export default function Calendar() {
         ]}
         openGraph={{
           url: 'https://me-20.vercel.app/calendar',
-          title: `${name} | BUET`,
+          title: `${env.name} | BUET`,
           description: `A general purpose web platform for information sharing among ${name}, BUET`,
           images: [
             {
@@ -46,7 +44,7 @@ export default function Calendar() {
               type: 'image/png',
             },
           ],
-          site_name: name,
+          site_name: env.name,
         }}
       />
       <Soon />

@@ -22,14 +22,13 @@ import { getCounter } from '$lib/services/count'
 import HeaderCard from '$lib/components/common/header'
 import Intro from '$lib/components/common/intro'
 import { useInfo } from '$lib/services/context/info'
+import { env } from '$lib/services/env'
 
 const Home: NextPage = () => {
-  const { name } = useInfo()
-
   return (
     <div>
       <NextSeo
-        title={`${name} | Home`}
+        title={`${env.name} | Home`}
         description={`A general purpose web platform for information sharing among ${name}, BUET`}
         additionalMetaTags={[
           {
@@ -39,7 +38,7 @@ const Home: NextPage = () => {
         ]}
         openGraph={{
           url: 'https://me-20.vercel.app/',
-          title: `${name} | BUET`,
+          title: `${env.name} | BUET`,
           description: `A general purpose web platform for information sharing among ${name}, BUET`,
           images: [
             {
@@ -50,7 +49,7 @@ const Home: NextPage = () => {
               type: 'image/png',
             },
           ],
-          site_name: name,
+          site_name: env.name,
         }}
       />
       <Intro />

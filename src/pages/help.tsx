@@ -6,17 +6,15 @@ import { dehydrate } from 'react-query'
 import HelpQuery from '$lib/components/help/query'
 import RecentQuery from '$lib/components/help/recent-queries'
 import { createQueryClient } from '$lib/modules/react-query'
-import { useInfo } from '$lib/services/context/info'
 import { getRecentHelpQueries } from '$lib/services/help'
 import { HELP_QUERY } from '$lib/utils/constants'
+import { env } from '$lib/services/env'
 
 const HelpPage: NextPage = () => {
-  const { name } = useInfo()
-
   return (
     <div>
       <NextSeo
-        title={`${name} | Help`}
+        title={`${env.name} | Help`}
         description={`A general purpose web platform for information sharing among ${name}, BUET`}
         additionalMetaTags={[
           {
@@ -26,7 +24,7 @@ const HelpPage: NextPage = () => {
         ]}
         openGraph={{
           url: 'https://me-20.vercel.app/help',
-          title: `${name} | BUET`,
+          title: `${env.name} | BUET`,
           description: `A general purpose web platform for information sharing among ${name}, BUET`,
           images: [
             {
@@ -37,7 +35,7 @@ const HelpPage: NextPage = () => {
               type: 'image/png',
             },
           ],
-          site_name: name,
+          site_name: env.name,
         }}
       />
       <Typography variant='h4' fontWeight={600}>
