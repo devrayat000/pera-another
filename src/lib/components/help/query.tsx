@@ -1,10 +1,11 @@
-import { useInfo } from '$lib/services/context/info'
-import { askForHelp, IHelpQuery } from '$lib/services/help'
-import { HELP_MUTATION, HELP_QUERY } from '$lib/utils/constants'
 import { Button, InputBase, InputLabel, Paper, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { useForm } from 'react-hook-form'
 import { useMutation, useQueryClient } from 'react-query'
+
+import { askForHelp, IHelpQuery } from '$lib/services/help'
+import { HELP_MUTATION, HELP_QUERY } from '$lib/utils/constants'
+import { env } from '$lib/services/env'
 
 const HelpQuery = () => {
   const queryClient = useQueryClient()
@@ -28,8 +29,6 @@ const HelpQuery = () => {
       queryClient.invalidateQueries(HELP_QUERY)
     },
   })
-
-  const { roll, rollPlaceholder } = useInfo()
 
   const {
     register,
@@ -88,7 +87,7 @@ const HelpQuery = () => {
           <InputLabel>Student ID:</InputLabel>
           <InputBase
             size='small'
-            placeholder={rollPlaceholder}
+            placeholder={env.rollPlaceholder}
             sx={{
               bgcolor: t => t.palette.background.default,
               py: t => t.spacing(0.75),
@@ -99,7 +98,7 @@ const HelpQuery = () => {
             inputProps={{
               ...register('student_id', {
                 pattern: {
-                  value: roll,
+                  value: env.rollRexExp,
                   message: 'Invalid Student ID!',
                 },
                 required: {

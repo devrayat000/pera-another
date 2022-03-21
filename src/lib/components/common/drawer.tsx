@@ -10,11 +10,11 @@ import {
 } from '@mui/icons-material'
 import { Fade, ListItemText, Typography } from '@mui/material'
 
+import { useStore } from '$lib/services/store'
 import Settings from '../icons/settings'
 import DrawerLink from '../link/drawer-link'
-import { useStore } from '$lib/services/store'
-import { useInfo } from '$lib/services/context/info'
 import Author from './author'
+import { env } from '$lib/services/env'
 
 const drawerWidth = 320
 
@@ -43,19 +43,6 @@ const DrawerHeader = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}))
-
-const DrawerFooter = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'start',
-  justifyContent: 'end',
-  flexGrow: 1,
-  gap: 3.5,
-  justifySelf: 'self-end',
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
@@ -102,8 +89,6 @@ export default function MiniDrawer() {
   const open = useStore(store => store.drawer.state)
   const handleDrawerToggle = useStore(store => store.drawer.toggle)
 
-  const { name } = useInfo()
-
   return (
     <Drawer
       variant='permanent'
@@ -132,7 +117,7 @@ export default function MiniDrawer() {
         <Fade in={open} mountOnEnter unmountOnExit>
           <Box display='flex' alignItems='end' gap={t => t.spacing(1)}>
             <Typography variant='h4' fontWeight={600} component='h4'>
-              {name}
+              {env.name}
             </Typography>
             <Typography>v.69</Typography>
           </Box>

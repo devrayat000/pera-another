@@ -1,3 +1,6 @@
+import { TableCell, TableRow } from '@mui/material'
+import { useQuery } from 'react-query'
+
 import { getAnnouncements } from '$lib/services/announcement'
 import { getAssignment } from '$lib/services/assignment'
 import { getClassTests } from '$lib/services/class-test'
@@ -6,8 +9,6 @@ import {
   ASSIGNMENT_QUERY,
   CLASS_TEST_QUERY,
 } from '$lib/utils/constants'
-import { TableCell, TableRow } from '@mui/material'
-import { useQuery } from 'react-query'
 import TaskDetails from './details'
 
 export const ClassTestTable = () => {
