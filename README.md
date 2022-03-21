@@ -1,34 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Pera v.69
 
-## Getting Started
+## An online platform to keep track of university schedules and stuff
 
-First, run the development server:
+Can't track which class test is up next, what assignments to submit tomorrow? How many class tests and assignments are on you a\*\*? Knocking the admins?? Well here comes a solution.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+![Home Page](./public/home_full.png 'Home Page')
+![Home Page](./public/help_full.png 'Help Query Page')
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Check out the [Live demo](https://me-20.vercel.app/ 'ME 2020 | Home')
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Technologies used
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- [Next.js](https://nextjs.org/ 'Next.js by Vercel - The React Framework') (Front-end)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+  - [Axios](https://axios-http.com/ 'Axios')
+  - [React Query](https://react-query.tanstack.com/ 'React Query - Hooks for fetching, caching and updating asynchronous data in React')
+  - [React Hook Form](https://react-hook-form.com/ 'Home | React Hook Form - Simple React forms validation')
+  - [Material-UI v5](https://mui.com/ 'MUI: The React component library you always wanted')
+  - [Zustand](https://github.com/pmndrs/zustand 'Zustand')
 
-## Learn More
+- Djando (Back-end)
 
-To learn more about Next.js, take a look at the following resources:
+## Table of contents
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Home Page
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Help Page
 
-## Deploy on Vercel
+## Project Roadmap
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+[x] Overall course info
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[x] Ask help from class admins
+
+[ ] Event calendar
+
+[ ] Student profile
+
+[ ] Student phonebook
+
+[ ] Probable CGPA calculator
+
+[ ] Dark mode
