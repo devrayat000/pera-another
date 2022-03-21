@@ -1,6 +1,7 @@
 export const CLASS_TEST_QUERY = 'class_tests'
 export const ASSIGNMENT_QUERY = 'assignment'
 export const ANNOUNCEMENT_QUERY = 'announcement'
+export const CLASS_LINK_QUERY = 'class_link'
 export const COUNTER_QUERY = 'counter'
 export const HELP_QUERY = 'help'
 

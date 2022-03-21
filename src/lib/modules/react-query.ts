@@ -1,5 +1,7 @@
 import { QueryClient, QueryClientConfig } from 'react-query'
 
+import { env } from '$lib/services/env'
+
 const queryClient = createQueryClient()
 
 export function createQueryClient(): QueryClient
@@ -9,7 +11,7 @@ export function createQueryClient(config?: QueryClientConfig) {
     defaultOptions: {
       queries: {
         cacheTime: 1 * 60 * 1000, // 1 minute
-        refetchOnWindowFocus: process.env.NODE_ENV === 'production',
+        refetchOnWindowFocus: env.isProd,
         ...config?.defaultOptions?.queries,
       },
       ...config?.defaultOptions?.queries,

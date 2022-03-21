@@ -1,4 +1,4 @@
-import { getRecentHelpQueries } from '$lib/services/help'
+import { getRecentHelpQueries } from '$lib/services/fetch/help'
 import { HELP_QUERY } from '$lib/utils/constants'
 import { Grid, Typography, Paper, Box, GridProps } from '@mui/material'
 import { styled } from '@mui/material/styles'

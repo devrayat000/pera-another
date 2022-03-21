@@ -1,4 +1,4 @@
-import { getCounter } from '$lib/services/count'
+import { getCounter } from '$lib/services/fetch/count'
 import { COUNTER_QUERY } from '$lib/utils/constants'
 import { Box, Typography } from '@mui/material'
 import { useQuery } from 'react-query'

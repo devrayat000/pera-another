@@ -1,7 +1,9 @@
 import axios from 'axios'
 
+import { env } from '$lib/services/env'
+
 const apiInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL + '/api/public',
+  baseURL: env.apiUrl + '/api/public',
   maxRedirects: 5,
 })
 

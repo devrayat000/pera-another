@@ -3,7 +3,7 @@ import { Box } from '@mui/system'
 import { useForm } from 'react-hook-form'
 import { useMutation, useQueryClient } from 'react-query'
 
-import { askForHelp, IHelpQuery } from '$lib/services/help'
+import { askForHelp, IHelpQuery } from '$lib/services/fetch/help'
 import { HELP_MUTATION, HELP_QUERY } from '$lib/utils/constants'
 import { env } from '$lib/services/env'
 

@@ -3,10 +3,10 @@ import { NextSeo } from 'next-seo'
 import { dehydrate } from 'react-query'
 import { Box } from '@mui/material'
 
-import { getClassTests } from '$lib/services/class-test'
+import { getClassTests } from '$lib/services/fetch/class-test'
 import { createQueryClient } from '$lib/modules/react-query'
-import { getAssignment } from '$lib/services/assignment'
-import { getAnnouncements } from '$lib/services/announcement'
+import { getAssignment } from '$lib/services/fetch/assignment'
+import { getAnnouncements } from '$lib/services/fetch/announcement'
 import {
   ANNOUNCEMENT_QUERY,
   ASSIGNMENT_QUERY,
@@ -18,10 +18,11 @@ import {
   AssignmentTable,
   ClassTestTable,
 } from '$lib/components/task/individuals'
-import { getCounter } from '$lib/services/count'
+import { getCounter } from '$lib/services/fetch/count'
 import HeaderCard from '$lib/components/common/header'
 import Intro from '$lib/components/common/intro'
 import { env } from '$lib/services/env'
+import { initializeHomePage } from '$lib/components/functions/home'
 
 const Home: NextPage = () => {
   return (
@@ -67,14 +68,7 @@ const Home: NextPage = () => {
 export default Home
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
-  const queryClient = createQueryClient()
-
-  await Promise.all([
-    queryClient.prefetchQuery(CLASS_TEST_QUERY, getClassTests),
-    queryClient.prefetchQuery(ASSIGNMENT_QUERY, getAssignment),
-    queryClient.prefetchQuery(ANNOUNCEMENT_QUERY, getAnnouncements),
-    queryClient.prefetchQuery(COUNTER_QUERY, getCounter),
-  ])
+  const queryClient = await initializeHomePage()
 
   return {
     props: {

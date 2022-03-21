@@ -2,7 +2,7 @@ import {
   ClassTest as IClassTest,
   ClassTestInput,
   ClassTestType,
-} from '$lib/services/class-test'
+} from '$lib/services/fetch/class-test'
 
 export class ClassTest implements IClassTest {
   id: number

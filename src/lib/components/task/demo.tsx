@@ -6,26 +6,25 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
-import { ClassTestType } from '$lib/services/fetch/class-test'
-import { ClassTest } from '$lib/utils/factory'
-
 const boldHeader: SxProps<Theme> = {
   fontWeight: 700,
   color: t => t.palette.text.secondary,
 }
 
-export interface TaskDetailsProps<Item extends object> {
+interface Base {
+  id: number
+}
+
+export interface TaskDetailsProps<Item extends Base> {
   title: string
   headers: Partial<keyof Item>[]
   items?: Item[]
-  children: (item: Item) => JSX.Element
 }
 
-const TaskDetails = function <Item extends object>({
+const TaskDetails = function <Item extends Base>({
   title,
   headers,
   items,
-  children,
 }: TaskDetailsProps<Item>) {
   return (
     <Paper
@@ -45,17 +44,30 @@ const TaskDetails = function <Item extends object>({
           <TableHead>
             <TableRow>
               {headers.map(header => (
-                <TableCell
-                  key={header.toString()}
-                  component='th'
-                  sx={boldHeader}
-                >
+                <TableCell key={String(header)} component='th' sx={boldHeader}>
                   {header}
                 </TableCell>
               ))}
             </TableRow>
           </TableHead>
-          <TableBody>{items?.map(children)}</TableBody>
+          <TableBody>
+            {items?.map(item => {
+              return (
+                <TableCell key={item.id}>
+                  {headers.map(header => {
+                    return (
+                      <TableCell
+                        key={`${String(header)}_${item.id}`}
+                        component='td'
+                      >
+                        {header}
+                      </TableCell>
+                    )
+                  })}
+                </TableCell>
+              )
+            })}
+          </TableBody>
         </Table>
       </TableContainer>
     </Paper>
@@ -63,3 +75,19 @@ const TaskDetails = function <Item extends object>({
 }
 
 export default TaskDetails
+
+function objectKeyMap<O extends object, Return>(
+  obj: O,
+  callback: (key: keyof O, value: O[keyof O]) => Return
+): Return[] {
+  const result: Return[] = []
+
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      const element = callback(key, obj[key])
+      result.push(element)
+    }
+  }
+
+  return result
+}

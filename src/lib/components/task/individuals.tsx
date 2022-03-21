@@ -1,9 +1,9 @@
 import { TableCell, TableRow } from '@mui/material'
 import { useQuery } from 'react-query'
 
-import { getAnnouncements } from '$lib/services/announcement'
-import { getAssignment } from '$lib/services/assignment'
-import { getClassTests } from '$lib/services/class-test'
+import { getAnnouncements } from '$lib/services/fetch/announcement'
+import { getAssignment } from '$lib/services/fetch/assignment'
+import { getClassTests } from '$lib/services/fetch/class-test'
 import {
   ANNOUNCEMENT_QUERY,
   ASSIGNMENT_QUERY,

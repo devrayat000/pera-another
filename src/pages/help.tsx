@@ -6,7 +6,7 @@ import { dehydrate } from 'react-query'
 import HelpQuery from '$lib/components/help/query'
 import RecentQuery from '$lib/components/help/recent-queries'
 import { createQueryClient } from '$lib/modules/react-query'
-import { getRecentHelpQueries } from '$lib/services/help'
+import { getRecentHelpQueries } from '$lib/services/fetch/help'
 import { HELP_QUERY } from '$lib/utils/constants'
 import { env } from '$lib/services/env'
 

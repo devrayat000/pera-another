@@ -3,7 +3,7 @@ import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined'
 import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined'
 import { useQuery } from 'react-query'
 
-import { getCounter } from '$lib/services/count'
+import { getCounter } from '$lib/services/fetch/count'
 import { COUNTER_QUERY } from '$lib/utils/constants'
 import Task from '../task/header'
 import { green, pink, indigo } from '@mui/material/colors'
