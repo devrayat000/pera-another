@@ -1,7 +1,24 @@
 {
   "name": "stud-book",
   "version": "0.1.0",
+  "description": "A general purpose web platform for information sharing among ME 2020, BUET",
   "private": true,
+  "author": {
+    "name": "Zul Ikram Musaddik Rayat",
+    "email": "2010050@me.buet.ac.bd",
+    "url": "https://github.com/devrayat000"
+  },
+  "contributors": [
+    {
+      "name": "Md. Tamim Sarkar",
+      "email": "2010097@me.buet.ac.bd",
+      "url": "https://github.com/BooleanWolf"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/devrayat000/pera-frontend.git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

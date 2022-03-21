@@ -15,7 +15,7 @@ const HelpPage: NextPage = () => {
     <div>
       <NextSeo
         title={`${env.name} | Help`}
-        description={`A general purpose web platform for information sharing among ${name}, BUET`}
+        description={`A general purpose web platform for information sharing among ${env.name}, BUET`}
         additionalMetaTags={[
           {
             name: 'keywords',
@@ -25,7 +25,7 @@ const HelpPage: NextPage = () => {
         openGraph={{
           url: 'https://me-20.vercel.app/help',
           title: `${env.name} | BUET`,
-          description: `A general purpose web platform for information sharing among ${name}, BUET`,
+          description: `A general purpose web platform for information sharing among ${env.name}, BUET`,
           images: [
             {
               url: '/seo/help.png',

@@ -24,7 +24,7 @@ export default function Calendar() {
     <>
       <NextSeo
         title={`${env.name} | Calendar`}
-        description={`A general purpose web platform for information sharing among ${name}, BUET`}
+        description={`A general purpose web platform for information sharing among ${env.name}, BUET`}
         additionalMetaTags={[
           {
             name: 'keywords',
@@ -34,7 +34,7 @@ export default function Calendar() {
         openGraph={{
           url: 'https://me-20.vercel.app/calendar',
           title: `${env.name} | BUET`,
-          description: `A general purpose web platform for information sharing among ${name}, BUET`,
+          description: `A general purpose web platform for information sharing among ${env.name}, BUET`,
           images: [
             {
               url: '/seo/calendar.png',
