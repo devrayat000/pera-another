@@ -7,7 +7,9 @@ Can't track which class test is up next, what assignments to submit tomorrow? Ho
 ![Home Page](./public/home_full.png 'Home Page')
 ![Home Page](./public/help_full.png 'Help Query Page')
 
-### Check out the [Live demo](https://me-20.vercel.app/ 'ME 2020 | Home')
+#### Check out the [Live demo](https://me-20.vercel.app/ 'ME 2020 | Home')
+
+#### Go to the [Back-end](https://github.com/devrayat000/pera 'Pera Back-end') Repository
 
 ## Technologies used
 
@@ -21,24 +23,39 @@ Can't track which class test is up next, what assignments to submit tomorrow? Ho
 
 - Djando (Back-end)
 
+## Front-end Folder Structure
+
+- public
+  - images
+  - seo
+
+- src
+  - pages
+  - lib
+    - components
+    - hooks
+    - modules
+    - services
+    - styles
+    - utils
+
 ## Table of contents
 
 - Home Page
-
 - Help Page
 
 ## Project Roadmap
 
-[x] Overall course info
+- [x] Overall course info
 
-[x] Ask help from class admins
+- [x] Ask help from class admins
 
-[ ] Event calendar
+- [ ] Event calendar
 
-[ ] Student profile
+- [ ] Student profile
 
-[ ] Student phonebook
+- [ ] Student phonebook
 
-[ ] Probable CGPA calculator
+- [ ] Probable CGPA calculator
 
-[ ] Dark mode
+- [ ] Dark mode
