@@ -80,7 +80,7 @@ export const AnnouncementTable = () => {
           </TableCell>
           <TableCell
             dangerouslySetInnerHTML={{
-              __html: announcement.description.replaceAll('\n', '<br/>'),
+              __html: announcement.description.replace(/\n/g, '<br/>'),
             }}
           />
         </TableRow>
