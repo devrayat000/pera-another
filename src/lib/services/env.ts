@@ -2,8 +2,8 @@ import { createDept } from './dept'
 import { Dept, DeptInfo } from './dept/type'
 
 export interface Env extends DeptInfo {
-  isProd: boolean
-  apiUrl: string
+  readonly isProd: boolean
+  readonly apiUrl: string
 }
 
 export function createEnv(info: DeptInfo): Env {

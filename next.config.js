@@ -18,6 +18,12 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  compress: process.env.NODE_ENV === 'production',
+  swcMinify: process.env.NODE_ENV === 'production',
+  compiler: {
+    reactRemoveProperties: { properties: ['^data-test$'] },
+    removeConsole: { exclude: ['error'] },
+  },
 }
 
 module.exports = nextConfig

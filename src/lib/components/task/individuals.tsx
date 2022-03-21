@@ -78,7 +78,11 @@ export const AnnouncementTable = () => {
           <TableCell component='th' scope='row'>
             {announcement.title}
           </TableCell>
-          <TableCell>{announcement.description}</TableCell>
+          <TableCell
+            dangerouslySetInnerHTML={{
+              __html: announcement.description.replaceAll('\n', '<br/>'),
+            }}
+          />
         </TableRow>
       )}
     </TaskDetails>
