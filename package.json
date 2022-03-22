@@ -39,6 +39,7 @@
     "@mui/material": "^5.4.4",
     "@mui/styles": "^5.4.4",
     "axios": "^0.26.1",
+    "moment": "^2.29.1",
     "next": "12.1.0",
     "next-seo": "^5.1.0",
     "react": "17.0.2",

@@ -1,12 +1,13 @@
-import { useMemo } from 'react'
+import { forwardRef, useMemo } from 'react'
 import Link, { LinkProps } from 'next/link'
 import { useRouter } from 'next/router'
 import ListItemButton, {
   ListItemButtonProps,
+  ListItemButtonTypeMap,
 } from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import { darken, SvgIcon } from '@mui/material'
+import { darken, ExtendButtonBase, SvgIcon } from '@mui/material'
 import { styled } from '@mui/material'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
@@ -16,6 +17,16 @@ export interface DrawerLinkProps extends LinkProps {
   icon: typeof SvgIcon
 }
 
+// export type BaseDrawerLinkProps<
+//   D extends React.ElementType<any> = 'div',
+//   P = { component?: D }
+// > = MyListItemButton<D, P> & {
+//   open?: boolean
+//   text: string
+//   leading?: JSX.Element
+//   trailing?: JSX.Element
+// }
+
 export interface BaseDrawerLinkProps extends MyListItemButton {
   open?: boolean
   text: string
@@ -23,14 +34,26 @@ export interface BaseDrawerLinkProps extends MyListItemButton {
   trailing?: JSX.Element
 }
 
-interface MyListItemButton extends ListItemButtonProps<React.ElementType> {
+// type MyListItemButton<
+//   D extends React.ElementType<any> = 'div',
+//   P = { component?: D }
+// > = ListItemButtonProps<D, P> & {
+//   active?: boolean
+// }
+type A = MyListItemButton['onCopy']
+interface MyListItemButton
+  extends ListItemButtonProps<'a', { component?: 'a' }> {
   active?: boolean
+  component?: 'a'
 }
 
-export const MyListItemButton = styled(ListItemButton, {
-  shouldForwardProp: props => props !== 'active',
-  name: 'MyListItemButton',
-})<MyListItemButton>(({ theme, active }) => ({
+export const MyListItemButton = styled(
+  ListItemButton as ExtendButtonBase<ListItemButtonTypeMap<{}, 'a'>>,
+  {
+    shouldForwardProp: props => props !== 'active',
+    name: 'MyListItemButton',
+  }
+)<MyListItemButton>(({ theme, active }) => ({
   minHeight: 48,
   padding: theme.spacing(1.5, 2),
   color: active ? 'white' : theme.palette.grey[200],
@@ -45,7 +68,10 @@ export const MyListItemButton = styled(ListItemButton, {
   }),
 }))
 
-export const BaseDrawerLink: React.FC<BaseDrawerLinkProps> = props => {
+export const BaseDrawerLink = forwardRef<
+  HTMLAnchorElement,
+  BaseDrawerLinkProps
+>((props, ref) => {
   const { text, open, active, leading, trailing, ...rest } = props
 
   return (
@@ -55,8 +81,9 @@ export const BaseDrawerLink: React.FC<BaseDrawerLinkProps> = props => {
       sx={{
         justifyContent: open ? 'initial' : 'center',
       }}
-      component='a'
       {...rest}
+      component='a'
+      ref={ref}
     >
       {leading}
       <ListItemText
@@ -66,7 +93,9 @@ export const BaseDrawerLink: React.FC<BaseDrawerLinkProps> = props => {
       {!active && open && trailing}
     </MyListItemButton>
   )
-}
+})
+
+BaseDrawerLink.displayName = 'BaseDrawerLink'
 
 const DrawerLink: React.FC<DrawerLinkProps> = props => {
   const { open, text, icon: Icon, ...rest } = props
