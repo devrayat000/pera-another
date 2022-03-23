@@ -8,6 +8,7 @@ import {
   ListAltOutlined,
   CalendarViewMonthOutlined,
 } from '@mui/icons-material'
+import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined'
 import { Fade, ListItemText, Typography } from '@mui/material'
 
 import { useStore } from '$lib/services/store'
@@ -85,6 +86,11 @@ const links = [
     href: '/help',
     text: 'Help Zone',
     icon: HelpCenterOutlined,
+  },
+  {
+    href: '/routine',
+    text: 'Routine',
+    icon: AssignmentOutlinedIcon,
   },
 ]
 

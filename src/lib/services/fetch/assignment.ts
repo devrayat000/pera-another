@@ -4,6 +4,7 @@ export interface Assignment {
   id: number
   subject: string
   title: string
+  teacher: string
   due: string
 }
 
