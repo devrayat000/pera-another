@@ -128,7 +128,7 @@ export default function MiniDrawer() {
             <Typography variant='h4' fontWeight={600} component='h4'>
               {env.name}
             </Typography>
-            <Typography>v.69</Typography>
+            <Typography>v.70</Typography>
           </Box>
         </Fade>
         <IconButton onClick={handleDrawerToggle}>
