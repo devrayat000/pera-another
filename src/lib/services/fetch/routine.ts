@@ -1,6 +1,6 @@
 import apiInstance from '$lib/modules/axios'
 
-export const enum Day {
+export enum Day {
   SAT = 'saturday',
   SUN = 'sunday',
   MON = 'monday',

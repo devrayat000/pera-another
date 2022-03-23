@@ -2,6 +2,7 @@ import { GetStaticProps, NextPage } from 'next'
 
 import { createQueryClient } from '$lib/modules/react-query'
 import {
+  Day,
   getMondayRoutine,
   getSaturdayRoutine,
   getSundayRoutine,
@@ -10,7 +11,7 @@ import {
   getWednesdayRoutine,
   Routine,
 } from '$lib/services/fetch/routine'
-import { Typography, TableRow, TableCell } from '@mui/material'
+import { Typography, TableRow, TableCell, Link } from '@mui/material'
 import { Box } from '@mui/system'
 import TaskDetails from '$lib/components/task/details'
 
@@ -25,18 +26,25 @@ const RoutinePage: NextPage<RoutineProps> = ({
 }) => {
   return (
     <div>
-      <Typography variant='h4' fontWeight={600}>
+      <Typography variant='h4' fontWeight={600} textAlign='center'>
         Routine
       </Typography>
 
+      <Box height={t => t.spacing(4)} />
       <Box display='flex' flexDirection='column' alignItems='stretch' gap={3}>
-        {all.map(routine => {
+        {all.map((routine, i) => {
           return (
             <TaskDetails
               key={routine[0].day}
               title={routine[0].day.toUpperCase()}
               items={routine}
-              headers={['course', 'teacher', 'time', 'linkToClass']}
+              headers={[
+                'course',
+                'teacher',
+                'time',
+                // @ts-ignore
+                'room',
+              ]}
             >
               {rt => {
                 return (
@@ -49,7 +57,19 @@ const RoutinePage: NextPage<RoutineProps> = ({
                     </TableCell>
                     <TableCell>{rt.teacher}</TableCell>
                     <TableCell>{rt.time}</TableCell>
-                    <TableCell>{rt.linkToClass}</TableCell>
+                    <TableCell>
+                      {rt.linkToClass ? (
+                        <Link
+                          href={rt.linkToClass}
+                          title={rt.roomNo}
+                          target='_blank'
+                        >
+                          {rt.roomNo}
+                        </Link>
+                      ) : (
+                        rt.roomNo
+                      )}
+                    </TableCell>
                   </TableRow>
                 )
               }}
@@ -75,6 +95,8 @@ export const getStaticProps: GetStaticProps<RoutineProps> = async ctx => {
     queryClient.fetchQuery('thurs', getThursdayRoutine),
   ])
 
+  console.log(query)
+
   return {
     props: {
       sat: query[0],
@@ -83,7 +105,7 @@ export const getStaticProps: GetStaticProps<RoutineProps> = async ctx => {
       tue: query[3],
       wed: query[4],
       thurs: query[5],
-      all: query,
+      all: query.filter(q => q.length > 0),
     },
   }
 }
