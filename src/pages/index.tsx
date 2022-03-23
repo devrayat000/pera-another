@@ -37,14 +37,14 @@ const Home: NextPage = () => {
           },
         ]}
         openGraph={{
-          url: 'https://me-20.vercel.app/',
-          title: `${env.name} | BUET`,
+          url: 'https://www.buetme20.com/',
+          title: `${env.name} | Home`,
           description: `A general purpose web platform for information sharing among ${env.name}, BUET`,
           images: [
             {
               url: '/seo/home.png',
-              width: 536,
-              height: 146,
+              width: 1280,
+              height: 720,
               alt: 'Home Og Image Alt',
               type: 'image/png',
             },

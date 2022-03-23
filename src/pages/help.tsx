@@ -23,14 +23,14 @@ const HelpPage: NextPage = () => {
           },
         ]}
         openGraph={{
-          url: 'https://me-20.vercel.app/help',
-          title: `${env.name} | BUET`,
+          url: 'https://www.buetme20.com/help',
+          title: `${env.name} | Help`,
           description: `A general purpose web platform for information sharing among ${env.name}, BUET`,
           images: [
             {
               url: '/seo/help.png',
-              width: 1002,
-              height: 515,
+              width: 1280,
+              height: 720,
               alt: 'Help Og Image Alt',
               type: 'image/png',
             },

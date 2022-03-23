@@ -32,14 +32,14 @@ export default function Calendar() {
           },
         ]}
         openGraph={{
-          url: 'https://me-20.vercel.app/calendar',
-          title: `${env.name} | BUET`,
+          url: 'https://www.buetme20.com/calendar',
+          title: `${env.name} | Calendar`,
           description: `A general purpose web platform for information sharing among ${env.name}, BUET`,
           images: [
             {
               url: '/seo/calendar.png',
-              width: 1002,
-              height: 515,
+              width: 1280,
+              height: 720,
               alt: 'Calendar Og Image Alt',
               type: 'image/png',
             },

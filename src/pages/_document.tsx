@@ -52,6 +52,9 @@ class MyDocument extends Document<{ emotionStyleTags: JSX.Element[] }> {
             rel='stylesheet'
           />
           {this.props.emotionStyleTags}
+          <meta httpEquiv='X-UA-Compatible' content='IE=7' />
+          <meta httpEquiv='X-UA-Compatible' content='ie=edge' />
+          <meta httpEquiv='Content-Type' content='text/html;charset=UTF-8' />
         </Head>
         <body>
           <Main />

@@ -13,6 +13,7 @@ import { theme } from '$lib/styles/theme'
 import { createCache } from '$lib/utils/css-cache'
 import MiniDrawer from '$lib/components/common/drawer'
 import { InitialState, Provider, useCreateStore } from '$lib/services/store'
+import Head from 'next/head'
 
 const clientCache = createCache()
 
@@ -34,6 +35,12 @@ const MyApp: NextPage<MyAppProps> = ({
                 <MiniDrawer />
                 <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
                   <Container maxWidth='md'>
+                    <Head>
+                      <meta
+                        name='viewport'
+                        content='width=device-width, initial-scale=1.0'
+                      />
+                    </Head>
                     <Component {...(pageProps as any)} />
                   </Container>
                 </Box>
