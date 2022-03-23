@@ -19,9 +19,23 @@ const Settings = ({ open, duration }: { open: boolean; duration: number }) => {
           classNames='drawer-openner'
         >
           {open ? (
-            <SettingsOutlinedIcon htmlColor='#000' fontSize='large' />
+            <SettingsOutlinedIcon
+              // htmlColor='#000'
+              sx={{
+                color: t =>
+                  t.palette.getContrastText(t.palette.background.default),
+              }}
+              fontSize='large'
+            />
           ) : (
-            <SettingsIcon htmlColor='#000' fontSize='large' />
+            <SettingsIcon
+              // htmlColor='#000'
+              sx={{
+                color: t =>
+                  t.palette.getContrastText(t.palette.background.default),
+              }}
+              fontSize='large'
+            />
           )}
         </CSSTransition>
       </SwitchTransition>

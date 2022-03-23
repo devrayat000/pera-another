@@ -1,4 +1,4 @@
-import { Grid, Paper } from '@mui/material'
+import { Grid, Paper, Theme, useMediaQuery } from '@mui/material'
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined'
 import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined'
 import { useQuery } from 'react-query'
@@ -10,6 +10,7 @@ import { green, pink, indigo } from '@mui/material/colors'
 
 const HeaderCard = () => {
   const { data } = useQuery(COUNTER_QUERY, getCounter)
+  const media = useMediaQuery<Theme>(t => t.breakpoints.up('sm'))
 
   return (
     <Paper
@@ -20,7 +21,8 @@ const HeaderCard = () => {
         container
         spacing={2}
         paddingX={t => t.spacing(4)}
-        alignItems='center'
+        alignItems={media ? 'center' : 'start'}
+        flexDirection={media ? 'row' : 'column'}
       >
         <Grid item xs={4}>
           <Task

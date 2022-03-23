@@ -1,5 +1,6 @@
 import { createTheme } from '@mui/material'
-import { grey, purple } from '@mui/material/colors'
+import { recomposeColor } from '@mui/material/styles'
+import { grey, purple, blueGrey } from '@mui/material/colors'
 import darkScrollbar from '@mui/material/darkScrollbar'
 
 const defaultFonts = ['sans-serif']
@@ -42,6 +43,38 @@ export const theme = createTheme({
           thumb: grey[400],
           track: grey[200],
         }),
+      },
+    },
+  },
+})
+
+export const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    grey: {
+      ...grey,
+      '200': '#9197B3',
+    },
+    primary: {
+      ...purple,
+      main: '#5932EA',
+    },
+    background: {
+      default: blueGrey[900],
+      paper: blueGrey.A700,
+    },
+    text: {
+      secondary: '#9197B3',
+    },
+  },
+  typography: {
+    fontFamily: ["'Poppins'", ...defaultFonts].join(', '),
+  },
+  shadows: ['none', `0px 10px 60px rgba(49, 52, 56, 0.5)`, ...defaultShadows],
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: darkScrollbar(),
       },
     },
   },

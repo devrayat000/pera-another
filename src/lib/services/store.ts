@@ -1,3 +1,5 @@
+import { darkTheme, theme } from '$lib/styles/theme'
+import { Theme } from '@mui/material'
 import { useLayoutEffect } from 'react'
 import create, { UseBoundStore } from 'zustand'
 import createContext from 'zustand/context'
@@ -7,11 +9,18 @@ export interface InitialState {
   drawer: {
     state: boolean
   }
+  theme: {
+    state: Theme
+  }
 }
 
 export interface StoreModel extends InitialState {
   drawer: {
     state: boolean
+    toggle(): void
+  }
+  theme: {
+    state: Theme
     toggle(): void
   }
 }
@@ -20,6 +29,7 @@ let store: UseBoundStore<StoreModel> | undefined
 
 const initialState: InitialState = {
   drawer: { state: false },
+  theme: { state: theme },
 }
 
 const zustandContext = createContext<StoreModel>()
@@ -36,9 +46,24 @@ export const initializeStore = (preloadedState?: InitialState) => {
           ...preloadedState?.drawer,
           toggle() {
             set(prev => ({
+              ...prev,
               drawer: {
                 ...prev.drawer,
                 state: !prev.drawer.state,
+              },
+            }))
+          },
+        },
+        theme: {
+          ...initialState.theme,
+          ...preloadedState?.theme,
+          toggle() {
+            set(prev => ({
+              ...prev,
+              theme: {
+                ...prev.theme,
+                state:
+                  prev.theme.state.palette.mode === 'light' ? darkTheme : theme,
               },
             }))
           },

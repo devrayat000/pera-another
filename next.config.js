@@ -21,7 +21,7 @@ const nextConfig = {
   compress: process.env.NODE_ENV === 'production',
   swcMinify: process.env.NODE_ENV === 'production',
   compiler: {
-    reactRemoveProperties: { properties: ['^data-test$'] },
+    // reactRemoveProperties: { properties: ['^data-test$'] },
     removeConsole: { exclude: ['error'] },
   },
 }

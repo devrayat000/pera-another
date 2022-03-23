@@ -1,4 +1,4 @@
-import { Paper, SxProps, Theme, Typography, Box } from '@mui/material'
+import { Paper, SxProps, Theme, Typography, Box, styled } from '@mui/material'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -21,6 +21,15 @@ export interface TaskDetailsProps<Item extends object> {
   children: (item: Item) => JSX.Element
 }
 
+const MyTableContainer = styled(TableContainer)(({ theme }) => ({
+  maxHeight: 360,
+  width: '100%',
+  overflow: 'auto',
+  [theme.breakpoints.up('sm')]: {
+    maxHeight: 280,
+  },
+}))
+
 const TaskDetails = function <Item extends object>({
   title,
   headers,
@@ -40,7 +49,7 @@ const TaskDetails = function <Item extends object>({
         {title} List
       </Typography>
       <Box sx={{ height: t => t.spacing(1.5) }} />
-      <TableContainer sx={{ maxHeight: 280, width: '100%', overflow: 'auto' }}>
+      <MyTableContainer>
         <Table stickyHeader aria-label='sticky table'>
           <TableHead>
             <TableRow>
@@ -57,7 +66,7 @@ const TaskDetails = function <Item extends object>({
           </TableHead>
           <TableBody>{items?.map(children)}</TableBody>
         </Table>
-      </TableContainer>
+      </MyTableContainer>
     </Paper>
   )
 }

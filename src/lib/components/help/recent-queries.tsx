@@ -1,6 +1,6 @@
 import { getRecentHelpQueries } from '$lib/services/fetch/help'
 import { HELP_QUERY } from '$lib/utils/constants'
-import { Grid, Typography, Paper, Box, GridProps } from '@mui/material'
+import { Grid, Typography, Paper, Box, GridProps, darken } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { useQuery } from 'react-query'
 
@@ -32,7 +32,7 @@ const RecentQuery = () => {
             <Typography
               variant='subtitle2'
               sx={{
-                bgcolor: t => t.palette.grey[50],
+                bgcolor: t => darken(t.palette.background.paper, 0.3),
                 p: t => t.spacing(1),
                 borderRadius: t => t.spacing(1),
               }}
@@ -51,7 +51,7 @@ const RecentQuery = () => {
                 <Typography
                   variant='subtitle2'
                   sx={{
-                    bgcolor: t => t.palette.grey[100],
+                    bgcolor: t => darken(t.palette.background.paper, 0.35),
                     p: t => t.spacing(1),
                     borderRadius: t => t.spacing(1),
                   }}

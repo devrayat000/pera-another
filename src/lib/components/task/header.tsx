@@ -1,4 +1,13 @@
-import { Avatar, Box, SvgIcon, Typography } from '@mui/material'
+import {
+  Avatar,
+  Box,
+  SvgIcon,
+  Typography,
+  styled,
+  useMediaQuery,
+  Theme,
+  lighten,
+} from '@mui/material'
 import { blue } from '@mui/material/colors'
 
 export interface TaskProps {
@@ -9,6 +18,27 @@ export interface TaskProps {
   color?: Record<keyof typeof blue, string>
 }
 
+const MyAvatar = styled(Avatar, {
+  shouldForwardProp: props => props !== 'small',
+  name: 'MyAvatar',
+  label: 'MyAvatar',
+})<{ small?: boolean }>(({ theme, small }) => ({
+  height: 48,
+  width: 48,
+  ...(small && {
+    height: 24,
+    width: 24,
+  }),
+  [theme.breakpoints.up('sm')]: {
+    height: 72,
+    width: 72,
+    ...(small && {
+      height: 48,
+      width: 48,
+    }),
+  },
+}))
+
 const Task: React.FC<TaskProps> = ({
   title,
   count,
@@ -16,29 +46,41 @@ const Task: React.FC<TaskProps> = ({
   small,
   color,
 }) => {
+  const media = useMediaQuery<Theme>(t => t.breakpoints.up('sm'))
+
   return (
-    <Box display='flex' alignItems='center' gap={2}>
-      <Avatar
+    <Box
+      display='flex'
+      alignItems={!media ? 'stretch' : 'center'}
+      gap={2}
+      flexDirection={'row'}
+      flexGrow={1}
+    >
+      <MyAvatar
         sx={{
           bgcolor: (color ?? blue)[50],
-          height: small ? 48 : 72,
-          width: small ? 48 : 72,
         }}
       >
         <Icon
           sx={{ color: (color ?? blue)[500] }}
           fontSize={small ? 'small' : 'large'}
         />
-      </Avatar>
+      </MyAvatar>
       <Box>
         <Typography
-          color='GrayText'
-          fontSize={t => `calc(${small ? t.spacing(1.5) : t.spacing(2)} + 1px)`}
+          color={t => lighten(t.palette.text.secondary, 0.0)}
+          fontSize={t =>
+            !media
+              ? `calc(${small ? t.spacing(1.25) : t.spacing(1.5)} + 1px)`
+              : `calc(${t.spacing(1.5)} + 1px)`
+          }
           variant='subtitle2'
         >
           {title}
         </Typography>
-        <Typography variant={small ? 'h6' : 'h4'}>{count}</Typography>
+        <Typography variant={!media ? 'h6' : small ? 'h6' : 'h4'}>
+          {count}
+        </Typography>
       </Box>
     </Box>
   )
