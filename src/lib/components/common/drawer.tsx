@@ -16,6 +16,9 @@ import DrawerLink from '../link/drawer-link'
 import Author from './author'
 import { env } from '$lib/services/env'
 
+import rayat from './developer/rayat.jpg'
+import tamim from './developer/tamim.jpg'
+
 const drawerWidth = 320
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -147,13 +150,15 @@ export default function MiniDrawer() {
           open={open}
           text='BooleanWolf'
           href='https://www.facebook.com/mdtamim.sarkar.58/'
-          image='/images/developer/tamim.jpg'
+          image={tamim.src}
+          // image='/images/developer/tamim.jpg'
         />
         <Author
           open={open}
           text='DarkCoder'
           href='https://www.facebook.com/rayat.ass/'
-          image='/images/developer/rayat.jpg'
+          image={rayat.src}
+          // image='/images/developer/rayat.jpg'
         />
       </List>
     </Drawer>
