@@ -107,7 +107,7 @@ export const getStaticProps: GetStaticProps<RoutineProps> = async ctx => {
       thurs: query[5],
       all: query.filter(q => q.length > 0),
     },
-    revalidate: 1000 * 60,
+    revalidate: 60, // 60 seconds
   }
 }
 
