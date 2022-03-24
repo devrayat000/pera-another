@@ -9,7 +9,7 @@ import { useStore } from '$lib/services/store'
 
 const Intro = () => {
   const { data } = useQuery(COUNTER_QUERY, getCounter)
-  const theme = useStore(store => store.theme.state)
+  const mode = useStore(store => store.theme.state)
   const toggleTheme = useStore(store => store.theme.toggle)
 
   return (
@@ -22,7 +22,7 @@ const Intro = () => {
         Current Week: {data?.current_week_no ?? 0}
       </Typography>
       <IconButton onClick={toggleTheme}>
-        {theme.palette.mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+        {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
       </IconButton>
     </Box>
   )

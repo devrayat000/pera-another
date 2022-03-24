@@ -26,7 +26,7 @@ export const ClassTestTable = () => {
           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
         >
           <TableCell component='th' scope='row'>
-            {ct.subject}
+            {ct.subject}&nbsp;({ct.sec})
           </TableCell>
           <TableCell>{ct.about}</TableCell>
           <TableCell>{ct.type.toUpperCase()}</TableCell>

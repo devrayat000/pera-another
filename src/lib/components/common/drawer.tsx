@@ -97,11 +97,17 @@ const links = [
 export default function MiniDrawer() {
   const open = useStore(store => store.drawer.state)
   const handleDrawerToggle = useStore(store => store.drawer.toggle)
+  const set = useStore(store => store.drawer.setState)
+
+  console.log(open)
 
   return (
     <Drawer
       variant='permanent'
       transitionDuration={duration * 2}
+      onClose={() => {
+        set(false)
+      }}
       open={open}
       PaperProps={{
         sx: {

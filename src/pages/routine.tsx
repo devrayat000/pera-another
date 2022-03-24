@@ -1,4 +1,6 @@
 import { GetStaticProps, NextPage } from 'next'
+import { Box } from '@mui/system'
+import { useQueries } from 'react-query'
 
 import { createQueryClient } from '$lib/modules/react-query'
 import {
@@ -12,18 +14,41 @@ import {
   Routine,
 } from '$lib/services/fetch/routine'
 import { Typography, TableRow, TableCell, Link } from '@mui/material'
-import { Box } from '@mui/system'
 import TaskDetails from '$lib/components/task/details'
 
-const RoutinePage: NextPage<RoutineProps> = ({
-  sat,
-  sun,
-  mon,
-  tue,
-  wed,
-  thurs,
-  all,
-}) => {
+const RoutinePage: NextPage<RoutineProps> = ({ all }) => {
+  const data = useQueries([
+    {
+      queryFn: getSaturdayRoutine,
+      queryKey: Day.SAT,
+      initialData: all[0],
+    },
+    {
+      queryFn: getSundayRoutine,
+      queryKey: Day.SUN,
+      initialData: all[1],
+    },
+    {
+      queryFn: getMondayRoutine,
+      queryKey: Day.MON,
+      initialData: all[2],
+    },
+    {
+      queryFn: getTuesdayRoutine,
+      queryKey: Day.TUE,
+      initialData: all[3],
+    },
+    {
+      queryFn: getWednesdayRoutine,
+      queryKey: Day.WED,
+      initialData: all[4],
+    },
+    {
+      queryFn: getThursdayRoutine,
+      queryKey: Day.THUR,
+      initialData: all[5],
+    },
+  ])
   return (
     <div>
       <Typography variant='h4' fontWeight={600} textAlign='center'>
@@ -32,50 +57,52 @@ const RoutinePage: NextPage<RoutineProps> = ({
 
       <Box height={t => t.spacing(4)} />
       <Box display='flex' flexDirection='column' alignItems='stretch' gap={3}>
-        {all.map((routine, i) => {
-          return (
-            <TaskDetails
-              key={routine[0].day}
-              title={routine[0].day.toUpperCase()}
-              items={routine}
-              headers={[
-                'course',
-                'teacher',
-                'time',
-                // @ts-ignore
-                'room',
-              ]}
-            >
-              {rt => {
-                return (
-                  <TableRow
-                    key={rt.id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell component='th' scope='row'>
-                      {rt.course}
-                    </TableCell>
-                    <TableCell>{rt.teacher}</TableCell>
-                    <TableCell>{rt.time}</TableCell>
-                    <TableCell>
-                      {rt.linkToClass ? (
-                        <Link
-                          href={rt.linkToClass}
-                          title={rt.roomNo}
-                          target='_blank'
-                        >
-                          {rt.roomNo}
-                        </Link>
-                      ) : (
-                        rt.roomNo
-                      )}
-                    </TableCell>
-                  </TableRow>
-                )
-              }}
-            </TaskDetails>
-          )
-        })}
+        {data
+          .filter(d => !!d.data && d.data.length !== 0)
+          .map(({ data: routine }, i) => {
+            return (
+              <TaskDetails
+                key={routine?.at(0)?.day!}
+                title={routine?.at(0)?.day?.toUpperCase()!}
+                items={routine}
+                headers={[
+                  'course',
+                  'teacher',
+                  'time',
+                  // @ts-ignore
+                  'room',
+                ]}
+              >
+                {rt => {
+                  return (
+                    <TableRow
+                      key={rt.id}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell component='th' scope='row'>
+                        {rt.course}
+                      </TableCell>
+                      <TableCell>{rt.teacher}</TableCell>
+                      <TableCell>{rt.time}</TableCell>
+                      <TableCell>
+                        {rt.linkToClass ? (
+                          <Link
+                            href={rt.linkToClass}
+                            title={rt.roomNo}
+                            target='_blank'
+                          >
+                            {rt.roomNo}
+                          </Link>
+                        ) : (
+                          rt.roomNo
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  )
+                }}
+              </TaskDetails>
+            )
+          })}
       </Box>
     </div>
   )
@@ -87,12 +114,12 @@ export const getStaticProps: GetStaticProps<RoutineProps> = async ctx => {
   const queryClient = createQueryClient()
 
   const query = await Promise.all([
-    queryClient.fetchQuery('sat', getSaturdayRoutine),
-    queryClient.fetchQuery('sun', getSundayRoutine),
-    queryClient.fetchQuery('mon', getMondayRoutine),
-    queryClient.fetchQuery('tue', getTuesdayRoutine),
-    queryClient.fetchQuery('wed', getWednesdayRoutine),
-    queryClient.fetchQuery('thurs', getThursdayRoutine),
+    queryClient.fetchQuery(Day.SAT, getSaturdayRoutine),
+    queryClient.fetchQuery(Day.SUN, getSundayRoutine),
+    queryClient.fetchQuery(Day.MON, getMondayRoutine),
+    queryClient.fetchQuery(Day.TUE, getTuesdayRoutine),
+    queryClient.fetchQuery(Day.WED, getWednesdayRoutine),
+    queryClient.fetchQuery(Day.THUR, getThursdayRoutine),
   ])
 
   console.log(query)

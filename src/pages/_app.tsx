@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { NextPage } from 'next'
 import { AppProps } from 'next/app'
 import { QueryClientProvider, DehydratedState, Hydrate } from 'react-query'
@@ -10,6 +10,7 @@ import {
   Container,
   CircularProgress,
   Backdrop,
+  createTheme,
 } from '@mui/material'
 
 // import '@fullcalendar/common/main.css'
@@ -27,6 +28,7 @@ import {
 } from '$lib/services/store'
 import Head from 'next/head'
 import { Router } from 'next/router'
+import { darkTheme, getTheme, theme } from '$lib/styles/theme'
 
 const clientCache = createCache()
 
@@ -72,10 +74,12 @@ const MyApp: NextPage<MyAppProps> = ({
 export default MyApp
 
 const Themed: React.FC = ({ children }) => {
-  const currentTheme = useStore(store => store.theme.state)
+  const mode = useStore(store => store.theme.state)
+
+  const theme = useMemo(() => createTheme(getTheme(mode)), [mode])
 
   return (
-    <ThemeProvider theme={currentTheme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       {children}
     </ThemeProvider>
