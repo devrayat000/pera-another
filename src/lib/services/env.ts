@@ -24,8 +24,8 @@ export function getEnv(dept: Dept) {
     }),
     [Dept.CSE]: createDept({
       dept,
-      rollRexExp: /2010(\d{3})/,
-      rollPlaceholder: '2010***',
+      rollRexExp: /2005(\d{3})/,
+      rollPlaceholder: '2005***',
     }),
     [Dept.URP]: createDept({
       dept,
