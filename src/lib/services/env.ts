@@ -34,13 +34,19 @@ export function getEnv(dept: Dept) {
     }),
     [Dept.EEE]: createDept({
       dept,
-      rollRexExp: /2015(\d{3})/,
-      rollPlaceholder: '2015***',
+      rollRexExp: /2006(\d{3})/,
+      rollPlaceholder: '2006***',
     }),
     [Dept.MSE]: createDept({
       dept,
       rollRexExp: /2015(\d{3})/,
       rollPlaceholder: '2015***',
+    }),
+    [Dept.RUET_CSE]: createDept({
+      dept,
+    }),
+    [Dept.RUET_EEE]: createDept({
+      dept,
     }),
   }
 

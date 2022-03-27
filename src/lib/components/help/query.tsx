@@ -87,7 +87,7 @@ const HelpQuery = () => {
           <InputLabel>Student ID:</InputLabel>
           <InputBase
             size='small'
-            placeholder={env.rollPlaceholder}
+            placeholder={env.rollPlaceholder ?? 'Enter roll...'}
             sx={{
               bgcolor: t => t.palette.background.default,
               py: t => t.spacing(0.75),
@@ -97,7 +97,7 @@ const HelpQuery = () => {
             }}
             inputProps={{
               ...register('student_id', {
-                pattern: {
+                pattern: env.rollRexExp && {
                   value: env.rollRexExp,
                   message: 'Invalid Student ID!',
                 },

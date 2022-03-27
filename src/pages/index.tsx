@@ -33,7 +33,7 @@ const Home: NextPage = () => {
         additionalMetaTags={[
           {
             name: 'keywords',
-            content: 'buet,me,mecha,mechanical,20,xx,mech',
+            content: `buet,me,mecha,mechanical,20,xx,mech`,
           },
         ]}
         openGraph={{

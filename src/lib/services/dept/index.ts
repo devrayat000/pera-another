@@ -7,7 +7,7 @@ export function createDept({
 }: Omit<DeptInfo, 'name'>): DeptInfo {
   return {
     dept,
-    name: `${dept} 2020`,
+    name: `${dept.replace(/^(\w+)(?=\s)/, '').trim()} 20`,
     rollRexExp,
     rollPlaceholder,
   }
