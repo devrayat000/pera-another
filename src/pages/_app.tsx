@@ -29,6 +29,9 @@ import {
 import Head from 'next/head'
 import { Router } from 'next/router'
 import { darkTheme, getTheme, theme } from '$lib/styles/theme'
+import { env } from '$lib/services/env'
+import { Dept } from '$lib/services/dept/type'
+import Script from 'next/script'
 
 const clientCache = createCache()
 
@@ -57,6 +60,20 @@ const MyApp: NextPage<MyAppProps> = ({
                         content='width=device-width, initial-scale=1.0'
                       />
                     </Head>
+                    {env.dept !== Dept.ME && (
+                      <Script
+                        id='Adsense-id'
+                        data-ad-client={process.env.NEXT_PUBLIC_AD_ID}
+                        async
+                        strategy='beforeInteractive'
+                        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_AD_ID}`}
+                        crossOrigin='anonymous'
+                        onError={e => {
+                          console.log('Ad script failed to load')
+                          console.log(e)
+                        }}
+                      />
+                    )}
                     <RouterLoader router={router}>
                       <Component {...(pageProps as any)} />
                     </RouterLoader>
