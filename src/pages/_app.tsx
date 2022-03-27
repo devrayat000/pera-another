@@ -60,7 +60,7 @@ const MyApp: NextPage<MyAppProps> = ({
                         content='width=device-width, initial-scale=1.0'
                       />
                     </Head>
-                    {env.dept !== Dept.ME && (
+                    {env.dept !== Dept.ME && process.env.NEXT_PUBLIC_AD_ID && (
                       <Script
                         id='Adsense-id'
                         data-ad-client={process.env.NEXT_PUBLIC_AD_ID}

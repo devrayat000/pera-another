@@ -32,6 +32,16 @@ export function getEnv(dept: Dept) {
       rollRexExp: /2015(\d{3})/,
       rollPlaceholder: '2015***',
     }),
+    [Dept.EEE]: createDept({
+      dept,
+      rollRexExp: /2015(\d{3})/,
+      rollPlaceholder: '2015***',
+    }),
+    [Dept.MSE]: createDept({
+      dept,
+      rollRexExp: /2015(\d{3})/,
+      rollPlaceholder: '2015***',
+    }),
   }
 
   return createEnv(info[dept])

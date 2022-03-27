@@ -2,6 +2,8 @@ export const enum Dept {
   ME = 'ME',
   CSE = 'CSE',
   URP = 'URP',
+  EEE = 'EEE',
+  MSE = 'MSE',
 }
 
 export interface DeptInfo {
