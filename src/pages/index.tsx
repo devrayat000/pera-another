@@ -1,8 +1,6 @@
-import { ErrorBoundary } from 'react-error-boundary'
 import { Suspense } from 'react'
-import type { GetServerSideProps, NextPage } from 'next'
+import type { NextPage } from 'next'
 import { NextSeo } from 'next-seo'
-import { dehydrate } from 'react-query'
 import { Box } from '@mui/material'
 
 import {

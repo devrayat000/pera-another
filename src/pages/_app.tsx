@@ -11,6 +11,7 @@ import {
   CircularProgress,
   Backdrop,
   createTheme,
+  useMediaQuery,
 } from '@mui/material'
 
 // import '@fullcalendar/common/main.css'
@@ -28,7 +29,7 @@ import {
 } from '$lib/services/store'
 import Head from 'next/head'
 import { Router } from 'next/router'
-import { darkTheme, getTheme, theme } from '$lib/styles/theme'
+import { getTheme } from '$lib/styles/theme'
 import { env } from '$lib/services/env'
 import { Dept } from '$lib/services/dept/type'
 import Script from 'next/script'
@@ -92,6 +93,7 @@ export default MyApp
 
 const Themed: React.FC = ({ children }) => {
   const mode = useStore(store => store.theme.state)
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
 
   const theme = useMemo(() => createTheme(getTheme(mode)), [mode])
 
