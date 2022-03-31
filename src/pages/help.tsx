@@ -9,6 +9,9 @@ import { createQueryClient } from '$lib/modules/react-query'
 import { getRecentHelpQueries } from '$lib/services/fetch/help'
 import { HELP_QUERY } from '$lib/utils/constants'
 import { env } from '$lib/services/env'
+import Loading from '$lib/components/fallback/loading'
+import { Suspense } from 'react'
+import ErrorComponent from '$lib/components/fallback/error'
 
 const HelpPage: NextPage = () => {
   return (
@@ -56,7 +59,11 @@ const HelpPage: NextPage = () => {
         </Typography>
       </Paper>
       <Box height={t => t.spacing(4)} />
-      <RecentQuery />
+      <ErrorComponent>
+        <Suspense fallback={<Loading />}>
+          <RecentQuery />
+        </Suspense>
+      </ErrorComponent>
     </div>
   )
 }

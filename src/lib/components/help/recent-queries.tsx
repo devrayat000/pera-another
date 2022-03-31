@@ -14,7 +14,9 @@ const MyGrid = styled(Grid)<GridProps>(({ theme }) => ({
 }))
 
 const RecentQuery = () => {
-  const { data } = useQuery(HELP_QUERY, getRecentHelpQueries)
+  const { data } = useQuery(HELP_QUERY, getRecentHelpQueries, {
+    suspense: true,
+  })
 
   if (!data) {
     return <></>
