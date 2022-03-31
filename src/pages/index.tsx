@@ -1,28 +1,20 @@
+import { ErrorBoundary } from 'react-error-boundary'
+import { Suspense } from 'react'
 import type { GetServerSideProps, NextPage } from 'next'
 import { NextSeo } from 'next-seo'
 import { dehydrate } from 'react-query'
 import { Box } from '@mui/material'
 
-import { getClassTests } from '$lib/services/fetch/class-test'
-import { createQueryClient } from '$lib/modules/react-query'
-import { getAssignment } from '$lib/services/fetch/assignment'
-import { getAnnouncements } from '$lib/services/fetch/announcement'
-import {
-  ANNOUNCEMENT_QUERY,
-  ASSIGNMENT_QUERY,
-  CLASS_TEST_QUERY,
-  COUNTER_QUERY,
-} from '$lib/utils/constants'
 import {
   AnnouncementTable,
   AssignmentTable,
   ClassTestTable,
 } from '$lib/components/task/individuals'
-import { getCounter } from '$lib/services/fetch/count'
 import HeaderCard from '$lib/components/common/header'
 import Intro from '$lib/components/common/intro'
 import { env } from '$lib/services/env'
-import { initializeHomePage } from '$lib/components/functions/home'
+import ErrorComponent from '$lib/components/fallback/error'
+import Loading from '$lib/components/fallback/loading'
 
 const Home: NextPage = () => {
   return (
@@ -56,23 +48,35 @@ const Home: NextPage = () => {
       <Box height={t => t.spacing(2.5)} />
       <HeaderCard />
       <Box height={t => t.spacing(4)} />
-      <AnnouncementTable />
+      <ErrorComponent>
+        <Suspense fallback={<Loading />}>
+          <AnnouncementTable />
+        </Suspense>
+      </ErrorComponent>
       <Box height={t => t.spacing(4)} />
-      <ClassTestTable />
+      <ErrorComponent>
+        <Suspense fallback={<Loading />}>
+          <ClassTestTable />
+        </Suspense>
+      </ErrorComponent>
       <Box height={t => t.spacing(4)} />
-      <AssignmentTable />
+      <ErrorComponent>
+        <Suspense fallback={<Loading />}>
+          <AssignmentTable />
+        </Suspense>
+      </ErrorComponent>
     </div>
   )
 }
 
 export default Home
 
-export const getServerSideProps: GetServerSideProps = async ctx => {
-  const queryClient = await initializeHomePage()
+// export const getServerSideProps: GetServerSideProps = async ctx => {
+//   const queryClient = await initializeHomePage()
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  }
-}
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//     },
+//   }
+// }

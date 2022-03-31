@@ -12,7 +12,9 @@ import {
 import TaskDetails from './details'
 
 export const ClassTestTable = () => {
-  const { data: cts } = useQuery(CLASS_TEST_QUERY, getClassTests)
+  const { data: cts } = useQuery(CLASS_TEST_QUERY, getClassTests, {
+    suspense: true,
+  })
 
   return (
     <TaskDetails
@@ -38,7 +40,9 @@ export const ClassTestTable = () => {
 }
 
 export const AssignmentTable = () => {
-  const { data: assignments } = useQuery(ASSIGNMENT_QUERY, getAssignment)
+  const { data: assignments } = useQuery(ASSIGNMENT_QUERY, getAssignment, {
+    suspense: true,
+  })
 
   return (
     <TaskDetails
@@ -62,7 +66,13 @@ export const AssignmentTable = () => {
   )
 }
 export const AnnouncementTable = () => {
-  const { data: announcements } = useQuery(ANNOUNCEMENT_QUERY, getAnnouncements)
+  const { data: announcements } = useQuery(
+    ANNOUNCEMENT_QUERY,
+    getAnnouncements,
+    {
+      suspense: true,
+    }
+  )
 
   return (
     <TaskDetails

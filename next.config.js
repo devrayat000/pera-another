@@ -24,6 +24,9 @@ const nextConfig = {
     // reactRemoveProperties: { properties: ['^data-test$'] },
     removeConsole: { exclude: ['error'] },
   },
+  experimental: {
+    reactRoot: true,
+  },
 }
 
 module.exports = nextConfig
